@@ -21,10 +21,19 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
         if(mysqli_num_rows($result) == 1){
             $user = mysqli_fetch_assoc($result);
+
             if(password_verify($password, $user['password'])){
                 $_SESSION['user_id']  = $user['id'];
                 $_SESSION['username'] = $user['name'];
                 $_SESSION['role']     = $user['role'];
+
+                // Cookie — remember me
+                if(isset($_POST['remember'])){
+                    setcookie('user_email', $email, time() + (86400 * 30), '/');
+                } else {
+                    setcookie('user_email', '', time() - 3600, '/');
+                }
+
                 if($user['role'] == 'admin'){
                     header('Location: admin/dashboard.php');
                 } elseif($user['role'] == 'doctor'){
@@ -67,11 +76,19 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         <form method="POST" onsubmit="return validateLogin()">
             <div class="form-group">
                 <label>Email Address</label>
-                <input type="email" name="email" id="email" placeholder="Enter your email">
+                <input type="email" name="email" id="email"
+                       placeholder="Enter your email"
+                       value="<?php echo isset($_COOKIE['user_email']) ? $_COOKIE['user_email'] : ''; ?>">
             </div>
             <div class="form-group">
                 <label>Password</label>
                 <input type="password" name="password" id="password" placeholder="Enter your password">
+            </div>
+            <div class="form-group" style="display:flex; align-items:center; gap:10px;">
+                <input type="checkbox" name="remember" id="remember"
+                       <?php echo isset($_COOKIE['user_email']) ? 'checked' : ''; ?>
+                       style="width:auto;">
+                <label for="remember" style="margin:0; font-weight:normal; color:#666;">Remember me</label>
             </div>
             <button type="submit" class="btn btn-primary" style="width:100%; padding:12px; font-size:16px;">Login</button>
         </form>

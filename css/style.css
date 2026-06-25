@@ -43,3 +43,60 @@ footer{text-align:center;padding:20px;background:#0D7377;color:#B2DFDB;margin-to
 .stat-card{background:#fff;border-radius:10px;padding:20px;text-align:center;box-shadow:0 2px 8px rgba(13,115,119,0.1);border-top:3px solid #14A085}
 .stat-card .stat-number{font-size:32px;font-weight:700;color:#0D7377;margin:0}
 .stat-card .stat-label{font-size:13px;color:#666;margin:4px 0 0}
+/* ── Responsive Media Queries ── */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        gap: 10px;
+        padding: 12px 16px;
+    }
+
+    nav ul {
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .container {
+        padding: 0 12px;
+    }
+
+    .card {
+        padding: 16px;
+    }
+
+    table {
+        font-size: 13px;
+    }
+
+    table th, table td {
+        padding: 8px 10px;
+    }
+
+    .hero-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .hero-grid > div:last-child {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    nav .logo-text {
+        font-size: 16px;
+    }
+
+    .page-title {
+        font-size: 20px;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+
+    .auth-box {
+        padding: 24px 16px;
+    }
+}* 
